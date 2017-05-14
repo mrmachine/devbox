@@ -1,0 +1,7 @@
+**/*.orig
+**/*.swp
+**/*~
+**/.DS_Store
+**/.zcompdump
+**/.zcompdump.zwc
+**/.zhistory

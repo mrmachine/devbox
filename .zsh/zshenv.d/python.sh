@@ -1,0 +1,3 @@
+export PYTHONDONTWRITEBYTECODE="1"
+export PYTHONHASHSEED="random"
+export PYTHONWARNINGS="ignore"
