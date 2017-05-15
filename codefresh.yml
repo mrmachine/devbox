@@ -15,3 +15,12 @@ steps:
     candidate: '${{build_image}}'
     tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
     type: push
+  push_image:
+    title: Pushing Docker Image to Registry
+    candidate: '${{build_image}}'
+    tag: latest
+    type: push
+    when:
+      branch:
+        only:
+          - master
