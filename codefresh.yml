@@ -1,5 +1,11 @@
 version: '1.0'
 steps:
+  init_submodules:
+    title: Init Submodules
+    commands:
+      - git submodule update --init --recursive
+    image: codefreshio/git-image:latest
+    working_directory: ${{main_clone}}
   build_image:
     title: Building Docker Image
     image_name: mrmachine/devbox
