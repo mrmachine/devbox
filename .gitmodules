@@ -1,0 +1,15 @@
+[submodule "opt/git-secret"]
+	path = opt/git-secret
+	url = https://github.com/sobolevn/git-secret.git
+[submodule "opt/prezto"]
+	path = opt/prezto
+	url = https://github.com/sorin-ionescu/prezto.git
+[submodule "opt/pyenv"]
+	path = opt/pyenv
+	url = https://github.com/pyenv/pyenv.git
+[submodule "opt/pyenv-virtualenv"]
+	path = opt/pyenv-virtualenv
+	url = https://github.com/pyenv/pyenv-virtualenv.git
+[submodule "opt/transcrypt"]
+	path = opt/transcrypt
+	url = https://github.com/elasticdog/transcrypt.git
