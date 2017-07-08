@@ -53,7 +53,6 @@ RUN apt-get update \
         unrar-free \
         vim \
         vim-editorconfig \
-        vim-python \
         vim-python-jedi \
         vim-syntax-docker \
         zsh \
