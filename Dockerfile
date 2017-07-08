@@ -1,86 +1,85 @@
-FROM alpine:edge
+FROM buildpack-deps:xenial
 
-RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
-RUN apk update \
-	&& apk upgrade \
-	&& apk add \
-		aws-cli@testing \
-		aws-cli-doc@testing \
-		aws-cli-zsh-completion@testing \
-		bash \
-		bash-completion \
-		bash-doc \
-		beets \
-		build-base \
-		certbot \
-		coreutils \
-		curl \
-		curl-doc \
-		docker \
-		docker-doc \
-		docker-vim \
-		docker-zsh-completion \
-		dockerize@testing \
-		elasticsearch \
-		elasticsearch-doc \
-		findutils \
-		git \
-		git-doc \
-		git-zsh-completion \
-		gnupg \
-		gnupg-doc \
-		go \
-		go-doc \
-		grep \
-		grep-doc \
-		htop \
-		htop-doc \
-		nginx \
-		nginx-doc \
-		nginx-vim \
-		nodejs-npm \
-		p7zip \
-		p7zip-doc \
-		postgresql \
-		postgresql-doc \
-		pv \
-		pv-doc \
-		py-virtualenv \
-		python2 \
-		python2-dev \
-		python2-doc \
-		python3 \
-		python3-dev \
-		python3-doc \
-		redis \
-		rsync \
-		rsync-doc \
-		rsync-zsh-completion \
-		sqlite \
-		sqlite-doc \
-		tig \
-		tig-doc \
-		tini \
-		tmux \
-		tmux-doc \
-		tmux-zsh-completion \
-		unrar \
-		unrar-doc \
-		vim \
-		vim-doc \
-		wget \
-		wget-doc \
-		xz \
-		xz-doc \
-		zsh \
-		zsh-doc \
-		# See: https://wiki.alpinelinux.org/wiki/How_to_get_regular_stuff_working
-    && rm -rf /var/cache/apk/*
+RUN apt-get update \
+    && apt-get upgrade -y --no-install-recommends \
+    && apt-get install -y --no-install-recommends \
+        # bash-doc \
+        # beets-doc \
+        # certbot \
+        # git-doc \
+        # git-lfs \
+        # gnupg-doc \
+        # golang-doc \
+        # nginx-doc \
+        # nodejs \
+        # postgresql-doc \
+        # pyenv \
+        # pyenv-virtualenv \
+        # python-doc \
+        # python3-doc \
+        # rclone \
+        # sqlite-doc \
+        # vim-doc \
+        # zsh-doc \
+        apache2-utils \
+        apt-utils \
+        awscli \
+        bash-completion \
+        beets \
+        bsdmainutils \
+        elasticsearch \
+        gnupg \
+        golang \
+        htop \
+        jq \
+        locales \
+        nano \
+        nginx \
+        p7zip \
+        postgresql \
+        postgresql-client \
+        pv \
+        python \
+        python-dev \
+        python-virtualenv \
+        python3 \
+        python3-dev \
+        redis-server \
+        rsync \
+        sqlite \
+        tig \
+        tmate \
+        tmux \
+        unrar-free \
+        vim \
+        vim-editorconfig \
+        vim-python \
+        vim-python-jedi \
+        vim-syntax-docker \
+        zsh \
+    && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /devbox/opt/git-secret/
-COPY opt/git-secret /devbox/opt/git-secret/
-RUN make build
-RUN PREFIX="/devbox" make install
+RUN locale-gen en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
+
+ENV DOCKERIZE_VERSION=0.4.0
+RUN wget -nv -O - "https://github.com/jwilder/dockerize/releases/download/v${DOCKERIZE_VERSION}/dockerize-linux-amd64-v${DOCKERIZE_VERSION}.tar.gz" | tar -xz -C /usr/local/bin/ -f -
+
+ENV NODE_VERSION=4.4.2
+RUN wget -nv -O - "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.xz" | tar -Jx -C /opt/ -f -
+RUN ln -s "/opt/node-v${NODE_VERSION}-linux-x64/bin/node" /usr/local/bin/
+RUN ln -s "/opt/node-v${NODE_VERSION}-linux-x64/bin/npm" /usr/local/bin/
+
+ENV PYTHON_PIP_VERSION=9.0.1
+RUN wget -nv -O - https://bootstrap.pypa.io/get-pip.py | python - "pip==${PYTHON_PIP_VERSION}"
+
+ENV TINI_VERSION=0.14.0
+RUN wget -nv -O /usr/local/bin/tini "https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini-static"
+RUN chmod +x /usr/local/bin/tini
+
+# https://github.com/git-lfs/git-lfs/releases/download/v2.1.0/git-lfs-linux-amd64-2.1.0.tar.gz
 
 ENV EDITOR="vim"
 ENV PATH="/devbox/bin:$PATH"
