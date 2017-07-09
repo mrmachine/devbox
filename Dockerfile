@@ -84,7 +84,7 @@ ENV EDITOR="vim"
 ENV PATH="/devbox/bin:$PATH"
 ENV ZDOTDIR="/devbox/.zsh"
 
-ENTRYPOINT ["/sbin/tini", "--"]
+ENTRYPOINT ["tini", "--"]
 CMD ["zsh", "--login"]
 
 WORKDIR /devbox/
