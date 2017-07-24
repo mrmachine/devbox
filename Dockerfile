@@ -85,6 +85,7 @@ ENV PATH="/devbox/bin:$PATH"
 ENV ZDOTDIR="/devbox/.zsh"
 
 ENTRYPOINT ["tini", "--", "entrypoint.sh"]
+CMD ["sleep", "infinity"]
 
 WORKDIR /devbox/
 COPY . /devbox/
