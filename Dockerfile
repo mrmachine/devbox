@@ -47,7 +47,6 @@ RUN apt-get update \
         redis-server \
         rsync \
         sqlite \
-        supervisor \
         tig \
         tmate \
         tmux \
@@ -85,8 +84,7 @@ ENV EDITOR="vim"
 ENV PATH="/devbox/bin:$PATH"
 ENV ZDOTDIR="/devbox/.zsh"
 
-ENTRYPOINT ["tini", "--"]
-CMD ["supervisord", "-n"]
+ENTRYPOINT ["tini", "--", "entrypoint.sh"]
 
 WORKDIR /devbox/
 COPY . /devbox/
