@@ -70,6 +70,9 @@ ENV NODE_VERSION=4.4.2
 ENV PATH="/opt/node-v${NODE_VERSION}-linux-x64/bin:$PATH"
 RUN wget -nv -O - "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.xz" | tar -Jx -C /opt/ -f -
 
+ENV BOWER_VERSION=1.8.0
+RUN npm install -g "bower@$BOWER_VERSION"
+
 ENV PYTHON_PIP_VERSION=9.0.1
 RUN wget -nv -O - https://bootstrap.pypa.io/get-pip.py | python - "pip==${PYTHON_PIP_VERSION}"
 
@@ -79,9 +82,6 @@ RUN pip install --no-cache-dir virtualenv==$PYTHON_VIRTUALENV_VERSION
 ENV TINI_VERSION=0.14.0
 RUN wget -nv -O /usr/local/bin/tini "https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini-static"
 RUN chmod +x /usr/local/bin/tini
-
-ENV BOWER_VERSION=1.8.0
-RUN npm install -g "bower@$BOWER_VERSION"
 
 # https://github.com/git-lfs/git-lfs/releases/download/v2.1.0/git-lfs-linux-amd64-2.1.0.tar.gz
 
