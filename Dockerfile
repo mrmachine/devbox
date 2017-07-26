@@ -85,6 +85,7 @@ RUN npm install -g "bower@$BOWER_VERSION"
 
 ENV EDITOR="vim"
 ENV PATH="/devbox/bin:$PATH"
+ENV PGUSER=postgres
 ENV ZDOTDIR="/devbox/.zsh"
 
 ENTRYPOINT ["tini", "--", "entrypoint.sh"]
