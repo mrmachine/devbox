@@ -32,6 +32,7 @@ RUN apt-get update \
         golang \
         htop \
         jq \
+        less \
         locales \
         nano \
         nginx \
