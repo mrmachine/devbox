@@ -77,6 +77,9 @@ ENV TINI_VERSION=0.14.0
 RUN wget -nv -O /usr/local/bin/tini "https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini-static"
 RUN chmod +x /usr/local/bin/tini
 
+ENV BOWER_VERSION=1.8.0
+RUN npm install -g "bower@$BOWER_VERSION"
+
 # https://github.com/git-lfs/git-lfs/releases/download/v2.1.0/git-lfs-linux-amd64-2.1.0.tar.gz
 
 ENV EDITOR="vim"
