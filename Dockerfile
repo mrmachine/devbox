@@ -42,7 +42,6 @@ RUN apt-get update \
         pv \
         python \
         python-dev \
-        python-virtualenv \
         python3 \
         python3-dev \
         redis-server \
@@ -73,6 +72,9 @@ RUN wget -nv -O - "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION
 
 ENV PYTHON_PIP_VERSION=9.0.1
 RUN wget -nv -O - https://bootstrap.pypa.io/get-pip.py | python - "pip==${PYTHON_PIP_VERSION}"
+
+ENV PYTHON_VIRTUALENV_VERSION=15.1.0
+RUN pip install --no-cache-dir virtualenv==$PYTHON_VIRTUALENV_VERSION
 
 ENV TINI_VERSION=0.14.0
 RUN wget -nv -O /usr/local/bin/tini "https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini-static"
